@@ -133,38 +133,38 @@ button:hover {
 .oculto {
   display: none;
 }
-
 @media print {
-  /* Ocultar inputs, selects, botones, y otros elementos que no quieras imprimir */
-  input, select, button, textarea {
-    display: none !important;
+  @page {
+    size: 58mm auto;
+    margin: 0;
   }
 
-  /* Mostrar solo el contenedor resultado y sus textos */
-  #resultado, #resultado * {
-    visibility: visible !important;
+  body {
+    width: 58mm !important;
+    margin: 0;
+    padding: 0;
+    font-family: monospace;
+    font-size: 12px;
   }
 
-  /* También asegurar que el contenedor resultado esté visible */
-  #resultado {
-    display: block !important;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 58mm;
-    padding: 10px;
-    background: white;
-  }
-
-  /* Ocultar todo lo demás */
+  /* Ocultar todo menos el resultado */
   body *:not(#resultado):not(#resultado *) {
     visibility: hidden !important;
   }
 
-  body {
-    margin: 0;
-    font-family: monospace;
-    font-size: 12px;
-    width: 58mm;
+  #resultado {
+    visibility: visible !important;
+    display: block !important;
+    width: 58mm !important;
+    max-width: 58mm !important;
+    margin: 0 !important;
+    padding: 10px !important;
+    box-sizing: border-box !important;
+    background: white !important;
+  }
+
+  /* Ocultar inputs, selects, botones */
+  input, select, button, textarea {
+    display: none !important;
   }
 }
