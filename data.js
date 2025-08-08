@@ -318,5 +318,6 @@ function imprimirYReiniciar() {
   setTimeout(() => {
     window.print();
     location.reload();
-  }, 700); // más retardo para asegurar que se vea el contenido
+  }, 1500); 
 }
+
