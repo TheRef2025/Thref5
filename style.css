@@ -101,11 +101,6 @@ button:hover {
   z-index: 1000;
 }
 
-@media print {
-  .img-derecha {
-    display: none !important;
-  }
-}
 
 .posicion-relativa {
   position: relative;
@@ -135,44 +130,41 @@ button:hover {
 }
 
 
+.oculto {
+  display: none;
+}
+
 @media print {
-  @page {
-    size: 58mm auto; /* Ancho fijo, alto automático */
-    margin: 0;
+  /* Ocultar inputs, selects, botones, y otros elementos que no quieras imprimir */
+  input, select, button, textarea {
+    display: none !important;
   }
 
-  body {
-    margin: 0;
-    padding: 0;
-    width: 58mm; /* Ancho exacto del rollo */
-    font-family: monospace; /* Letra clara para ticket */
-    font-size: 10px; /* Más compacto */
-  }
-
-  /* Ocultar todo menos el resultado */
-  body * {
-    visibility: hidden !important;
-  }
+  /* Mostrar solo el contenedor resultado y sus textos */
   #resultado, #resultado * {
     visibility: visible !important;
   }
 
-  /* Asegurar que el resultado ocupa todo el ancho */
+  /* También asegurar que el contenedor resultado esté visible */
   #resultado {
+    display: block !important;
     position: absolute;
     top: 0;
-    left: 10;
-    width: 100%;
+    left: 0;
+    width: 58mm;
+    padding: 10px;
     background: white;
-    padding: 0;
   }
 
-  /* No mostrar botones en impresión */
-  button {
-    display: none !important;
+  /* Ocultar todo lo demás */
+  body *:not(#resultado):not(#resultado *) {
+    visibility: hidden !important;
+  }
+
+  body {
+    margin: 0;
+    font-family: monospace;
+    font-size: 12px;
+    width: 58mm;
   }
 }
-
-
-
-
