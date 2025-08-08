@@ -136,56 +136,43 @@ button:hover {
 
 
 @media print {
+  @page {
+    size: 58mm auto; /* Ancho fijo, alto automático */
+    margin: 0;
+  }
+
   body {
-    width: 58mm;
     margin: 0;
     padding: 0;
-    font-family: monospace;
-    font-size: 10px;
+    width: 58mm; /* Ancho exacto del rollo */
+    font-family: monospace; /* Letra clara para ticket */
+    font-size: 10px; /* Más compacto */
   }
 
-  .ticket {
-    width: 100%;
-    text-align: center;
-  }
-
-  .no-print {
-    display: none;
-  }
-}
-
-@media print {
-  #formulario {
-    display: none;
-  }
-
-  #resultado {
-    display: block;
-  }
-}
-
-@media print {
-  .titulo-principal {
-    display: none;
-  }
-}
-
-@media print {
+  /* Ocultar todo menos el resultado */
   body * {
     visibility: hidden !important;
   }
-
   #resultado, #resultado * {
     visibility: visible !important;
   }
 
+  /* Asegurar que el resultado ocupa todo el ancho */
   #resultado {
     position: absolute;
     top: 0;
-    left: 0;
+    left: 10;
     width: 100%;
     background: white;
-    padding: 20px;
+    padding: 0;
+  }
+
+  /* No mostrar botones en impresión */
+  button {
+    display: none !important;
   }
 }
+
+
+
 
