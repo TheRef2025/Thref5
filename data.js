@@ -316,7 +316,7 @@ resultado.classList.remove("oculto");
   resultado.scrollIntoView({ behavior: "smooth", block: "start" });
   
 
-  setTimeout(() => {
+setTimeout(() => {
     window.print();
     location.reload();
   }, 1500); // más retardo para asegurar que se vea el contenido
