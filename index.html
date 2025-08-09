@@ -5,34 +5,22 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>TheRef</title>
   <link rel="stylesheet" href="style.css" />
-
 </head>
 <body>
   <h1 class="titulo-principal">TheRef</h1>
 
-<div id="bienvenida" class="pantalla-bienvenida">
-  <h1 id="bienvenida-texto">¡Bienvenido usuario!</h1>
-
-  <!-- Opciones de idioma, inicialmente ocultas -->
-  <div id="selector-idioma" class="oculto">
-    <button onclick="iniciar('es')">Español</button>
-
-    <button onclick="iniciar('kakchiquel')">Kaqchikel</button>
-    <button onclick="iniciar('quiche')">K’iche’</button>
-    <button onclick="iniciar('qeqchi')">Q’eqchi’</button>
+  <div id="bienvenida" class="pantalla-bienvenida">
+    <h1 id="bienvenida-texto">¡Bienvenido usuario!</h1>
+    <div id="selector-idioma" class="oculto">
+      <button onclick="iniciar('es')">Español</button>
+      <button onclick="iniciar('kakchiquel')">Kaqchikel</button>
+      <button onclick="iniciar('quiche')">K’iche’</button>
+      <button onclick="iniciar('qeqchi')">Q’eqchi’</button>
+    </div>
+    <button id="boton-continuar" onclick="mostrarSelectorIdioma()">Continuar</button>
   </div>
-  <!-- Botón para pasar a la selección de idioma -->
-  <button id="boton-continuar" onclick="mostrarSelectorIdioma()">Continuar</button>
-
-
-</div>
-
-</div>
-
-
 
   <form autocomplete="off" class="contenedor">
-
 
     <div id="seccion-datos-basicos" class="seccion">
       <h2>Datos Básicos</h2>
@@ -46,8 +34,7 @@
       <input type="text" id="cui" placeholder="¿Cuál es tu CUI?" />
       <input type="text" id="dpi" placeholder="¿Cuál es tu DPI?" />
       <button type="button" onclick="irAGenero()">Siguiente</button>
-
-      <button onclick="window.location.href='seccion-datos-basicos.html'">Regresar</button>
+      <button type="button" onclick="mostrarSeccion('seccion-datos-basicos')">Regresar</button>
     </div>
 
     <div id="seccion-genero" class="seccion oculto">
@@ -57,7 +44,6 @@
         <option value="hombre">Hombre</option>
         <option value="mujer">Mujer</option>
       </select>
-
       <div id="extra-mujer" class="oculto">
         <label>¿Estás en tu periodo en este momento?</label>
         <select id="periodo">
@@ -65,7 +51,6 @@
           <option value="sí">Sí</option>
           <option value="no">No</option>
         </select>
-
         <label>¿Estás embarazada?</label>
         <select id="embarazo">
           <option value="">Selecciona</option>
@@ -74,9 +59,7 @@
         </select>
       </div>
       <button type="button" onclick="mostrarCronica()">Siguiente</button>
-      <button type="button" onclick="validarDatosBasicos()">Regresar</button>
-
-
+      <button type="button" onclick="mostrarSeccion('seccion-identificacion')">Regresar</button>
     </div>
 
     <div id="seccion-cronica" class="seccion oculto">
@@ -88,9 +71,7 @@
       </select>
       <input type="text" id="cronica" placeholder="Especifica la enfermedad" class="oculto" />
       <button type="button" onclick="mostrarAlergias()">Siguiente</button>
-            <button type="button" onclick="irAGenero()">Regresar</button>
-
-  
+      <button type="button" onclick="mostrarSeccion('seccion-genero')">Regresar</button>
     </div>
 
     <div id="seccion-alergias" class="seccion oculto">
@@ -102,10 +83,7 @@
       </select>
       <input type="text" id="alergias" placeholder="Especifica la alergia" class="oculto" />
       <button type="button" onclick="mostrarOperaciones()">Siguiente</button>
-
-                  <button type="button" onclick="mostrarCronica()">Regresar</button>
-
-
+      <button type="button" onclick="mostrarSeccion('seccion-cronica')">Regresar</button>
     </div>
 
     <div id="seccion-operaciones" class="seccion oculto">
@@ -117,8 +95,7 @@
       </select>
       <input type="text" id="operado" placeholder="Especifica la operación" class="oculto" />
       <button type="button" onclick="mostrarFamilia()">Siguiente</button>
-            <button type="button" onclick="mostrarAlergias()">Regresar</button>
-
+      <button type="button" onclick="mostrarSeccion('seccion-alergias')">Regresar</button>
     </div>
 
     <div id="seccion-familia" class="seccion oculto">
@@ -130,11 +107,10 @@
       </select>
       <input type="text" id="caso-familiar" placeholder="Especifica el caso" class="oculto" />
       <button type="button" onclick="mostrarSignos()">Siguiente</button>
-      <button type="button" onclick="mostrarOperaciones()">Regresar</button>
+      <button type="button" onclick="mostrarSeccion('seccion-operaciones')">Regresar</button>
     </div>
 
     <div id="seccion-signos" class="seccion oculto posicion-relativa">
-      <img src="ESTASIIMPORTANTE.png" id="imagen-signos" alt="Imagen signos" class="imagen-superpuesta" />
       <h2>Signos Vitales</h2>
       <input type="number" id="oxigenacion" placeholder="Oxigenación (%)" />
       <input type="number" id="pulso" placeholder="Pulso (lpm)" />
@@ -142,7 +118,7 @@
       <input type="number" id="presion-diastolica" placeholder="Presión Diastólica" />
       <input type="number" step="0.1" id="temperatura" placeholder="Temperatura (°C)" />
       <button type="button" onclick="evaluarSignos()">Evaluar</button>
-      <button type="button" onclick="mostrarFamilia()">Regresar</button>
+      <button type="button" onclick="mostrarSeccion('seccion-familia')">Regresar</button>
     </div>
 
     <div id="seccion-zona-dolor" class="seccion oculto">
@@ -158,7 +134,7 @@
       </select>
       <input type="text" id="zona-especifica" placeholder="Especifica la zona" class="oculto" />
       <button type="button" onclick="mostrarSiguiente()">Siguiente</button>
-      <button type="button" onclick="mostrarSignos()">Regresar</button>
+      <button type="button" onclick="mostrarSeccion('seccion-signos')">Regresar</button>
     </div>
 
     <div id="resultado" class="seccion oculto">
@@ -185,8 +161,9 @@
       </div>
       <button type="button" onclick="imprimirYReiniciar()">Imprimir Resultado</button>
     </div>
+
   </form>
 
-  <script src="data.js" defer></script>
+  <script src="main.js" defer></script>
 </body>
 </html>
