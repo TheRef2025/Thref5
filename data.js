@@ -1,127 +1,23 @@
+// Mostrar selector de idioma
 function mostrarSelectorIdioma() {
-  // Oculta el botón "Continuar"
   document.getElementById('boton-continuar').classList.add('oculto');
-  
-  // Muestra los botones de selección de idioma
   document.getElementById('selector-idioma').classList.remove('oculto');
 }
 
-function seleccionarIdioma(idioma) {
-  idiomaSeleccionado = idioma;
-
-  const bienvenidaTexto = document.getElementById('bienvenida-texto');
-
-  switch (idioma) {
-    case 'es':
-      bienvenidaTexto.textContent = '¡Bienvenido usuario!';
-      break;
-    case 'kakchiquel':
-      bienvenidaTexto.textContent = '¡Ütz awäch ri achib’il!';
-      break;
-    case 'quiche':
-      bienvenidaTexto.textContent = '¡Xqa k’ulik ri achib’al!';
-      break;
-    case 'qeqchi':
-      bienvenidaTexto.textContent = '¡Ma sa’ laa ch’ool!';
-      break;
-  }
-
-  // Opcional: hablar en voz alta
-  hablar(bienvenidaTexto.textContent);
-
-  // Mostrar botón "Iniciar" cuando el usuario ya eligió idioma
-  document.getElementById('boton-iniciar').classList.remove('oculto');
-}
-
-
-
-function iniciar() {
+function iniciar(idioma) {
   document.getElementById('bienvenida').style.display = 'none';
-  document.getElementById('contenido-principal').style.display = 'block';
+  document.querySelector('form.contenedor').style.display = 'block';
+  mostrarSeccion('seccion-datos-basicos');
 }
 
-
-
-let vozEspanol = null;
-
-function cargarVozEspanol() {
-  const voces = speechSynthesis.getVoices();
-  vozEspanol = voces.find(
-    (voz) => voz.lang.startsWith("es") && voz.name.toLowerCase().includes("google")
-  ) || voces.find((voz) => voz.lang.startsWith("es"));
-}
-
-// Función para leer texto en voz alta con voz en español
-function leerTexto(texto) {
-  if (!texto) return;
-  window.speechSynthesis.cancel();
-  const mensaje = new SpeechSynthesisUtterance(texto);
-  if (vozEspanol) mensaje.voice = vozEspanol;
-  mensaje.lang = "es-ES";
-  mensaje.rate = 1;
-  mensaje.pitch = 1;
-  window.speechSynthesis.speak(mensaje);
-}
-
-// Mensaje inicial de bienvenida
-const mensajeBienvenida = `Hola, bienvenido, mi nombre es TheRef y soy un programa creado para poder realizar un diagnóstico médico previo a tu consulta médica. Responde todas las preguntas y al finalizar tendrás tu boletín para pasar a tu consulta.`;
-
-
-
-
-// Mensajes 
-const mensajesPorSeccion = {
-  "seccion-datos-basicos": `Por favor, ingresa tus datos básicos. Primero, dime tu nombre y tu edad.`,
-  "seccion-identificacion": `Ahora, por favor ingresa tu número de identificación. Si eres menor de edad, ingresa tu CUI; si eres adulto, ingresa tu DPI.`,
-  "seccion-genero": `Selecciona tu género. Si eres mujer, responderás algunas preguntas adicionales.`,
-  "seccion-cronica": `¿Tienes alguna enfermedad crónica?`,
-  "seccion-alergias": `¿Tienes alguna alergia?`,
-  "seccion-operaciones": `¿Has sido operado alguna vez?`,
-  "seccion-familia": `¿Tienes antecedentes familiares de enfermedad?`,
-  "seccion-signos": `Por favor, ingresa tus signos vitales.`,
-  "seccion-zona-dolor": `Selecciona o especifica la zona donde tienes dolor, si aplica.`,
-  "resultado": `Aquí tienes el resumen de tu diagnóstico previo.`,
-};
-
-
-document.addEventListener("DOMContentLoaded", () => {
-  cargarVozEspanol();
-
-  if (speechSynthesis.onvoiceschanged !== undefined) {
-    speechSynthesis.onvoiceschanged = () => {
-      cargarVozEspanol();
-    };
-  }
-
-  // Inicia inmediatamente
-  leerTexto(mensajeBienvenida);
-  mostrarSeccion("seccion-datos-basicos");
-});
-
-// mostrar una sección y leer texto personalizado o título
+// Función para mostrar solo la sección indicada
 function mostrarSeccion(id) {
-  document.querySelectorAll(".seccion").forEach((sec) => sec.classList.add("oculto"));
+  document.querySelectorAll(".seccion").forEach(s => s.classList.add("oculto"));
   const seccion = document.getElementById(id);
-  if (!seccion) return;
-  seccion.classList.remove("oculto");
-
-  if (mensajesPorSeccion[id]) {
-    leerTexto(mensajesPorSeccion[id]);
-  } else {
-    const h2 = seccion.querySelector("h2");
-    if (h2) leerTexto(h2.innerText);
-  }
+  if (seccion) seccion.classList.remove("oculto");
 }
-
-function iniciar() {
-  document.getElementById('bienvenida').style.display = 'none';
-  document.getElementById('contenido-principal').style.display = 'block';
-}
-
 
 // Validar datos básicos y avanzar
-
-
 function validarDatosBasicos() {
   const nombre = document.getElementById("nombre").value.trim();
   const edadStr = document.getElementById("edad").value.trim();
@@ -131,14 +27,13 @@ function validarDatosBasicos() {
     alert("Por favor, ingresa tu nombre.");
     return;
   }
-
   if (!edadStr || isNaN(edad) || edad <= 0) {
     alert("Por favor, ingresa una edad válida.");
     return;
   }
 
+  // Mostrar sección identificación y mostrar campos según edad
   mostrarSeccion("seccion-identificacion");
-
   if (edad <= 17) {
     document.getElementById("cui").classList.remove("oculto");
     document.getElementById("dpi").classList.add("oculto");
@@ -148,7 +43,6 @@ function validarDatosBasicos() {
   }
 }
 
-// Validar identificación y avanzar
 function irAGenero() {
   const edad = parseInt(document.getElementById("edad").value);
   if (edad <= 17) {
@@ -167,14 +61,6 @@ function irAGenero() {
   mostrarSeccion("seccion-genero");
 }
 
-// Funciones para género y demás
-
-function detectarEnterGenero(event) {
-  if (event.key === "Enter") {
-    verificarGenero();
-  }
-}
-
 function verificarGenero() {
   const genero = document.getElementById("genero").value;
   const extraMujer = document.getElementById("extra-mujer");
@@ -185,10 +71,16 @@ function verificarGenero() {
   }
 }
 
+function detectarEnterGenero(event) {
+  if (event.key === "Enter") {
+    verificarGenero();
+  }
+}
+
 function toggleInput(selectId, inputId) {
-  const selectValue = document.getElementById(selectId).value;
+  const selectVal = document.getElementById(selectId).value;
   const input = document.getElementById(inputId);
-  if (selectValue === "sí") {
+  if (selectVal === "sí") {
     input.classList.remove("oculto");
   } else {
     input.classList.add("oculto");
@@ -196,50 +88,35 @@ function toggleInput(selectId, inputId) {
   }
 }
 
-function validarYContinuar(idSelect, idInput, nextFn) {
-  const selectVal = document.getElementById(idSelect).value;
-  const inputVal = document.getElementById(idInput).value.trim();
+function validarYContinuar(selectId, inputId, siguienteSeccion) {
+  const selectVal = document.getElementById(selectId).value;
+  const inputVal = document.getElementById(inputId).value.trim();
 
   if (!selectVal) {
     alert("Por favor, selecciona una opción.");
     return;
   }
-
   if (selectVal === "sí" && !inputVal) {
     alert("Por favor, completa el campo requerido.");
     return;
   }
-  nextFn();
+  mostrarSeccion(siguienteSeccion);
 }
 
 function mostrarCronica() {
   mostrarSeccion("seccion-cronica");
 }
-
 function mostrarAlergias() {
-  validarYContinuar("tiene-enfermedad-cronica", "cronica", () => mostrarSeccion("seccion-alergias"));
+  validarYContinuar("tiene-enfermedad-cronica", "cronica", "seccion-alergias");
 }
-
 function mostrarOperaciones() {
-  validarYContinuar("tiene-alergia", "alergias", () => mostrarSeccion("seccion-operaciones"));
+  validarYContinuar("tiene-alergia", "alergias", "seccion-operaciones");
 }
-
 function mostrarFamilia() {
-  validarYContinuar("fue-operado", "operado", () => mostrarSeccion("seccion-familia"));
+  validarYContinuar("fue-operado", "operado", "seccion-familia");
 }
-
 function mostrarSignos() {
-  validarYContinuar("tiene-familia", "caso-familiar", () => {
-    mostrarSeccion("seccion-signos");
-
-    const img = document.getElementById("imagen-signos");
-    if (img) {
-      img.classList.remove("oculto");
-      setTimeout(() => {
-        img.classList.add("oculto");
-      }, 15000);
-    }
-  });
+  validarYContinuar("tiene-familia", "caso-familiar", "seccion-signos");
 }
 
 function evaluarSignos() {
@@ -249,22 +126,18 @@ function evaluarSignos() {
   const diastolica = parseFloat(document.getElementById("presion-diastolica").value);
   const temperatura = parseFloat(document.getElementById("temperatura").value);
 
-  if ([oxigenacion, pulso, sistolica, diastolica, temperatura].some((v) => isNaN(v))) {
+  if ([oxigenacion, pulso, sistolica, diastolica, temperatura].some(v => isNaN(v))) {
     alert("Por favor, completa todos los signos vitales con valores válidos.");
     return;
   }
 
-  const mensajes = [];
+  let mensajes = [];
   if (oxigenacion < 90) mensajes.push("Oxigenación baja.");
   if (pulso < 60 || pulso > 100) mensajes.push("Pulso fuera del rango normal.");
-  if (sistolica < 90 || sistolica > 140 || diastolica < 60 || diastolica > 90)
-    mensajes.push("Presión arterial fuera del rango normal.");
+  if (sistolica < 90 || sistolica > 140 || diastolica < 60 || diastolica > 90) mensajes.push("Presión arterial fuera del rango normal.");
   if (temperatura < 36 || temperatura > 38) mensajes.push("Temperatura fuera del rango normal.");
 
-  document.getElementById("mensaje-final").textContent = mensajes.length
-    ? mensajes.join(" ")
-    : "Signos vitales dentro del rango normal.";
-
+  document.getElementById("mensaje-final").textContent = mensajes.length ? mensajes.join(" ") : "Signos vitales dentro del rango normal.";
   mostrarSeccion("seccion-zona-dolor");
 }
 
@@ -291,33 +164,67 @@ function mostrarResumen() {
   document.getElementById("r-genero").textContent = genero;
   document.getElementById("r-periodo").textContent = genero === "mujer" ? obtenerValor("periodo") : "No aplica";
   document.getElementById("r-embarazo").textContent = genero === "mujer" ? obtenerValor("embarazo") : "No aplica";
-  document.getElementById("r-cronica").textContent =
-    obtenerValor("tiene-enfermedad-cronica") === "sí" ? obtenerValor("cronica") : "No";
+  document.getElementById("r-cronica").textContent = obtenerValor("tiene-enfermedad-cronica") === "sí" ? obtenerValor("cronica") : "No";
   document.getElementById("r-alergias").textContent = obtenerValor("tiene-alergia") === "sí" ? obtenerValor("alergias") : "No";
   document.getElementById("r-operado").textContent = obtenerValor("fue-operado") === "sí" ? obtenerValor("operado") : "No";
   document.getElementById("r-familia").textContent = obtenerValor("tiene-familia") === "sí" ? obtenerValor("caso-familiar") : "No";
   document.getElementById("r-oxigenacion").textContent = obtenerValor("oxigenacion");
   document.getElementById("r-pulso").textContent = obtenerValor("pulso");
-  document.getElementById("r-presion").textContent =
-    obtenerValor("presion-sistolica") + "/" + obtenerValor("presion-diastolica");
+  document.getElementById("r-presion").textContent = obtenerValor("presion-sistolica") + "/" + obtenerValor("presion-diastolica");
   document.getElementById("r-temperatura").textContent = obtenerValor("temperatura");
-  document.getElementById("r-zona-dolor").textContent =
-    obtenerValor("zonaSelect") !== "" ? obtenerValor("zonaSelect") : obtenerValor("zona-especifica");
+  document.getElementById("r-zona-dolor").textContent = obtenerValor("zonaSelect") !== "" ? obtenerValor("zonaSelect") : obtenerValor("zona-especifica");
 }
 
 function imprimirYReiniciar() {
   mostrarResumen();
 
-  document.querySelectorAll(".seccion").forEach(s => s.classList.add("oculto"));
-  const resultado = document.getElementById("resultado");
-  resultado.classList.remove("oculto");
+  const nombre = obtenerValor("nombre");
+  const edad = obtenerValor("edad");
+  const cui = obtenerValor("cui");
+  const dpi = obtenerValor("dpi");
+  const genero = obtenerValor("genero");
+  const periodo = obtenerValor("periodo");
+  const embarazo = obtenerValor("embarazo");
+  const cronica = obtenerValor("tiene-enfermedad-cronica") === "sí" ? obtenerValor("cronica") : "No";
+  const alergias = obtenerValor("tiene-alergia") === "sí" ? obtenerValor("alergias") : "No";
+  const operado = obtenerValor("fue-operado") === "sí" ? obtenerValor("operado") : "No";
+  const familia = obtenerValor("tiene-familia") === "sí" ? obtenerValor("caso-familiar") : "No";
+  const oxigenacion = obtenerValor("oxigenacion");
+  const pulso = obtenerValor("pulso");
+  const presion = obtenerValor("presion-sistolica") + "/" + obtenerValor("presion-diastolica");
+  const temperatura = obtenerValor("temperatura");
+  const zonaDolor = obtenerValor("zonaSelect") !== "" ? obtenerValor("zonaSelect") : obtenerValor("zona-especifica");
 
-  // Desplazar al resultado (especial para tablet)
-  resultado.scrollIntoView({ behavior: "smooth", block: "start" });
+  const textoImpresion = 
+`***** TheRef - Diagnóstico Médico Previo *****
+
+Nombre: ${nombre}
+Edad: ${edad}
+CUI: ${cui}
+DPI: ${dpi}
+Género: ${genero}
+Periodo: ${periodo}
+Embarazo: ${embarazo}
+
+Enfermedad Crónica: ${cronica}
+Alergias: ${alergias}
+Operaciones: ${operado}
+Antecedentes Familiares: ${familia}
+
+Signos Vitales:
+ - Oxigenación: ${oxigenacion} %
+ - Pulso: ${pulso} lpm
+ - Presión: ${presion} mmHg
+ - Temperatura: ${temperatura} °C
+
+Zona de Dolor: ${zonaDolor}
+
+**************************************`;
+
+  const urlRawBT = "rawbt://print?text=" + encodeURIComponent(textoImpresion);
+  window.location.href = urlRawBT;
 
   setTimeout(() => {
-    window.print();
     location.reload();
-  }, 1500); 
+  }, 3000);
 }
-
