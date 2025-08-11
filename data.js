@@ -305,19 +305,46 @@ function mostrarResumen() {
     obtenerValor("zonaSelect") !== "" ? obtenerValor("zonaSelect") : obtenerValor("zona-especifica");
 }
 
+function imprimirResumenRawbt() {
+  const texto =
+    `--- Diagnóstico Previo ---\n` +
+    `Nombre: ${obtenerValor("nombre")}\n` +
+    `Edad: ${obtenerValor("edad")}\n` +
+    `CUI: ${obtenerValor("cui")}\n` +
+    `DPI: ${obtenerValor("dpi")}\n` +
+    `Género: ${obtenerValor("genero")}\n` +
+    `Periodo: ${obtenerValor("periodo")}\n` +
+    `Embarazo: ${obtenerValor("embarazo")}\n` +
+    `Enfermedad Crónica: ${obtenerValor("tiene-enfermedad-cronica") === "sí" ? obtenerValor("cronica") : "No"}\n` +
+    `Alergias: ${obtenerValor("tiene-alergia") === "sí" ? obtenerValor("alergias") : "No"}\n` +
+    `Operaciones: ${obtenerValor("fue-operado") === "sí" ? obtenerValor("operado") : "No"}\n` +
+    `Familiares: ${obtenerValor("tiene-familia") === "sí" ? obtenerValor("caso-familiar") : "No"}\n` +
+    `Oxigenación: ${obtenerValor("oxigenacion")}\n` +
+    `Pulso: ${obtenerValor("pulso")}\n` +
+    `Presión: ${obtenerValor("presion-sistolica")}/${obtenerValor("presion-diastolica")}\n` +
+    `Temperatura: ${obtenerValor("temperatura")}\n` +
+    `Zona de Dolor: ${obtenerValor("zonaSelect") || obtenerValor("zona-especifica")}\n` +
+    `-------------------------\n\n`;
+
+  const rawbtURL = "rawbt:" + encodeURIComponent(texto);
+  window.location.href = rawbtURL;
+
+  setTimeout(() => {
+    location.reload();
+  }, 3000);
+}
+
+
+
 function imprimirYReiniciar() {
   mostrarResumen();
 
   document.querySelectorAll(".seccion").forEach(s => s.classList.add("oculto"));
-const resultado = document.getElementById("resultado");
-resultado.classList.remove("oculto");
-
-  // Desplazar al resultado (especial para tablet)
+  const resultado = document.getElementById("resultado");
+  resultado.classList.remove("oculto");
   resultado.scrollIntoView({ behavior: "smooth", block: "start" });
-  
 
-setTimeout(() => {
-    window.print();
-    location.reload();
-  }, 1500); // más retardo para asegurar que se vea el contenido
+  setTimeout(() => {
+    imprimirResumenRawbt();
+  }, 1500);
 }
