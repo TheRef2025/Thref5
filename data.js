@@ -289,13 +289,13 @@ function mostrarResumen() {
   document.getElementById("r-dpi").textContent = edad > 17 ? obtenerValor("dpi") : "No aplica";
   document.getElementById("r-edad").textContent = edad || "No especificado";
   document.getElementById("r-genero").textContent = genero;
-  document.getElementById("r-periodo").textContent = genero === "mujer" ? obtenerValor("periodo") : "No aplica";
-  document.getElementById("r-embarazo").textContent = genero === "mujer" ? obtenerValor("embarazo") : "No aplica";
+  document.getElementById("r-periodo").textContent = genero === "Mujer" ? obtenerValor("periodo") : "No aplica";
+  document.getElementById("r-embarazo").textContent = genero === "Mujer" ? obtenerValor("embarazo") : "No aplica";
   document.getElementById("r-cronica").textContent =
-    obtenerValor("tiene-enfermedad-cronica") === "sí" ? obtenerValor("cronica") : "No";
-  document.getElementById("r-alergias").textContent = obtenerValor("tiene-alergia") === "sí" ? obtenerValor("alergias") : "No";
-  document.getElementById("r-operado").textContent = obtenerValor("fue-operado") === "sí" ? obtenerValor("operado") : "No";
-  document.getElementById("r-familia").textContent = obtenerValor("tiene-familia") === "sí" ? obtenerValor("caso-familiar") : "No";
+    obtenerValor("tiene-enfermedad-cronica") === "Sí" ? obtenerValor("cronica") : "No";
+  document.getElementById("r-alergias").textContent = obtenerValor("tiene-alergia") === "Sí" ? obtenerValor("alergias") : "No";
+  document.getElementById("r-operado").textContent = obtenerValor("fue-operado") === "Sí" ? obtenerValor("operado") : "No";
+  document.getElementById("r-familia").textContent = obtenerValor("tiene-familia") === "Sí" ? obtenerValor("caso-familiar") : "No";
   document.getElementById("r-oxigenacion").textContent = obtenerValor("oxigenacion");
   document.getElementById("r-pulso").textContent = obtenerValor("pulso");
   document.getElementById("r-presion").textContent =
