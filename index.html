@@ -13,15 +13,14 @@
 <div id="bienvenida" class="pantalla-bienvenida">
   <h1 id="bienvenida-texto">¡Bienvenido usuario!</h1>
 
-  <!-- Opciones de idioma, inicialmente ocultas -->
   <div id="selector-idioma" class="oculto">
     <button onclick="iniciar('es')">Español</button>
+    <button onclick="location.href='kaq.html'">Kaqchikel</button>
 
-    <button onclick="iniciar('kakchiquel')">Kaqchikel</button>
-    <button onclick="iniciar('quiche')">K’iche’</button>
-    <button onclick="iniciar('qeqchi')">Q’eqchi’</button>
+    <button onclick="location.href='k’iche’.html'">K’iche’</button>
+    <button onclick="location.href='qeq.html'">Q’eqchi’</button>
   </div>
-  <!-- Botón para pasar a la selección de idioma -->
+
   <button id="boton-continuar" onclick="mostrarSelectorIdioma()">Continuar</button>
 
 
@@ -29,20 +28,18 @@
 
 </div>
 
-
-
   <form autocomplete="off" class="contenedor">
 
 
     <div id="seccion-datos-basicos" class="seccion">
-      <h2>Datos Básicos</h2>
+      <h2 id="titulo-datos-basicos">Datos Básicos</h2>
       <input type="text" id="nombre" placeholder="¿Cuál es tu nombre?" />
       <input type="number" id="edad" placeholder="¿Cuántos años tienes?" />
       <button type="button" onclick="validarDatosBasicos()">Siguiente</button>
     </div>
 
     <div id="seccion-identificacion" class="seccion oculto">
-      <h2>Identificación</h2>
+      <h2 id="titulo-identificacion">Identificación</h2>
       <input type="text" id="cui" placeholder="¿Cuál es tu CUI?" />
       <input type="text" id="dpi" placeholder="¿Cuál es tu DPI?" />
       <button type="button" onclick="irAGenero()">Siguiente</button>
@@ -51,7 +48,7 @@
     </div>
 
     <div id="seccion-genero" class="seccion oculto">
-      <h2>Género</h2>
+      <h2 id="titulo-genero">Género</h2>
       <select id="genero" onchange="verificarGenero()" onkeydown="detectarEnterGenero(event)">
         <option value="">Selecciona tu género</option>
         <option value="hombre">Hombre</option>
@@ -80,13 +77,13 @@
     </div>
 
     <div id="seccion-cronica" class="seccion oculto">
-      <h2>¿Tienes alguna enfermedad crónica?</h2>
+      <h2 id="titulo-cronica">¿Tienes alguna enfermedad crónica?</h2>
       <select id="tiene-enfermedad-cronica" onchange="toggleInput('tiene-enfermedad-cronica', 'cronica')">
         <option value="">Selecciona</option>
-        <option value="sí">Sí</option>
-        <option value="no">No</option>
+        <option value="Sí">Sí</option>
+        <option value="No">No</option>
       </select>
-      <input type="text" id="cronica" placeholder="Especifica la enfermedad" class="oculto" />
+      <input type="text" id="cronica" class="oculto" placeholder="Especifica tu enfermedad">
       <button type="button" onclick="mostrarAlergias()">Siguiente</button>
             <button type="button" onclick="irAGenero()">Regresar</button>
 
@@ -97,8 +94,8 @@
       <h2>¿Tienes alguna alergia?</h2>
       <select id="tiene-alergia" onchange="toggleInput('tiene-alergia', 'alergias')">
         <option value="">Selecciona</option>
-        <option value="sí">Sí</option>
-        <option value="no">No</option>
+        <option value="Sí">Sí</option>
+        <option value="No">No</option>
       </select>
       <input type="text" id="alergias" placeholder="Especifica la alergia" class="oculto" />
       <button type="button" onclick="mostrarOperaciones()">Siguiente</button>
@@ -112,8 +109,8 @@
       <h2>¿Has sido operado?</h2>
       <select id="fue-operado" onchange="toggleInput('fue-operado', 'operado')">
         <option value="">Selecciona</option>
-        <option value="sí">Sí</option>
-        <option value="no">No</option>
+        <option value="Sí">Sí</option>
+        <option value="No">No</option>
       </select>
       <input type="text" id="operado" placeholder="Especifica la operación" class="oculto" />
       <button type="button" onclick="mostrarFamilia()">Siguiente</button>
@@ -125,8 +122,8 @@
       <h2>¿Tienes antecedentes familiares de enfermedad?</h2>
       <select id="tiene-familia" onchange="toggleInput('tiene-familia', 'caso-familiar')">
         <option value="">Selecciona</option>
-        <option value="sí">Sí</option>
-        <option value="no">No</option>
+        <option value="Sí">Sí</option>
+        <option value="No">No</option>
       </select>
       <input type="text" id="caso-familiar" placeholder="Especifica el caso" class="oculto" />
       <button type="button" onclick="mostrarSignos()">Siguiente</button>
