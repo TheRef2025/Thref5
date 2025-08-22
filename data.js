@@ -1,8 +1,9 @@
+
 function mostrarSelectorIdioma() {
-  // Oculta el botón "Continuar"
+
   document.getElementById('boton-continuar').classList.add('oculto');
   
-  // Muestra los botones de selección de idioma
+  //
   document.getElementById('selector-idioma').classList.remove('oculto');
 }
 
@@ -26,10 +27,8 @@ function seleccionarIdioma(idioma) {
       break;
   }
 
-  // Opcional: hablar en voz alta
   hablar(bienvenidaTexto.textContent);
 
-  // Mostrar botón "Iniciar" cuando el usuario ya eligió idioma
   document.getElementById('boton-iniciar').classList.remove('oculto');
 }
 
@@ -51,7 +50,6 @@ function cargarVozEspanol() {
   ) || voces.find((voz) => voz.lang.startsWith("es"));
 }
 
-// Función para leer texto en voz alta con voz en español
 function leerTexto(texto) {
   if (!texto) return;
   window.speechSynthesis.cancel();
@@ -63,13 +61,13 @@ function leerTexto(texto) {
   window.speechSynthesis.speak(mensaje);
 }
 
-// Mensaje inicial de bienvenida
+
 const mensajeBienvenida = `Hola, bienvenido, mi nombre es TheRef y soy un programa creado para poder realizar un diagnóstico médico previo a tu consulta médica. Responde todas las preguntas y al finalizar tendrás tu boletín para pasar a tu consulta.`;
 
 
 
 
-// Mensajes 
+
 const mensajesPorSeccion = {
   "seccion-datos-basicos": `Por favor, ingresa tus datos básicos. Primero, dime tu nombre y tu edad.`,
   "seccion-identificacion": `Ahora, por favor ingresa tu número de identificación. Si eres menor de edad, ingresa tu CUI; si eres adulto, ingresa tu DPI.`,
@@ -93,12 +91,9 @@ document.addEventListener("DOMContentLoaded", () => {
     };
   }
 
-  // Inicia inmediatamente
   leerTexto(mensajeBienvenida);
   mostrarSeccion("seccion-datos-basicos");
 });
-
-// mostrar una sección y leer texto personalizado o título
 function mostrarSeccion(id) {
   document.querySelectorAll(".seccion").forEach((sec) => sec.classList.add("oculto"));
   const seccion = document.getElementById(id);
@@ -118,8 +113,6 @@ function iniciar() {
   document.getElementById('contenido-principal').style.display = 'block';
 }
 
-
-// Validar datos básicos y avanzar
 
 
 function validarDatosBasicos() {
@@ -148,7 +141,6 @@ function validarDatosBasicos() {
   }
 }
 
-// Validar identificación y avanzar
 function irAGenero() {
   const edad = parseInt(document.getElementById("edad").value);
   if (edad <= 17) {
@@ -167,7 +159,6 @@ function irAGenero() {
   mostrarSeccion("seccion-genero");
 }
 
-// Funciones para género y demás
 
 function detectarEnterGenero(event) {
   if (event.key === "Enter") {
@@ -188,7 +179,7 @@ function verificarGenero() {
 function toggleInput(selectId, inputId) {
   const selectValue = document.getElementById(selectId).value;
   const input = document.getElementById(inputId);
-  if (selectValue === "sí") {
+  if (selectValue === "Sí") {
     input.classList.remove("oculto");
   } else {
     input.classList.add("oculto");
@@ -205,7 +196,7 @@ function validarYContinuar(idSelect, idInput, nextFn) {
     return;
   }
 
-  if (selectVal === "sí" && !inputVal) {
+  if (selectVal === "Sí" && !inputVal) {
     alert("Por favor, completa el campo requerido.");
     return;
   }
@@ -280,6 +271,12 @@ function obtenerValor(id) {
   return val ? val : "No especificado";
 }
 
+function esSi(valor) {
+  return valor && valor.trim().toLowerCase() === "sí";
+}
+
+
+
 function mostrarResumen() {
   const edad = parseInt(obtenerValor("edad"));
   const genero = obtenerValor("genero");
@@ -289,13 +286,16 @@ function mostrarResumen() {
   document.getElementById("r-dpi").textContent = edad > 17 ? obtenerValor("dpi") : "No aplica";
   document.getElementById("r-edad").textContent = edad || "No especificado";
   document.getElementById("r-genero").textContent = genero;
-  document.getElementById("r-periodo").textContent = genero === "Mujer" ? obtenerValor("periodo") : "No aplica";
-  document.getElementById("r-embarazo").textContent = genero === "Mujer" ? obtenerValor("embarazo") : "No aplica";
+  document.getElementById("r-periodo").textContent = genero === "mujer" ? obtenerValor("periodo") : "No aplica";
+  document.getElementById("r-embarazo").textContent = genero === "mujer" ? obtenerValor("embarazo") : "No aplica";
   document.getElementById("r-cronica").textContent =
-    obtenerValor("tiene-enfermedad-cronica") === "Sí" ? obtenerValor("cronica") : "No";
-  document.getElementById("r-alergias").textContent = obtenerValor("tiene-alergia") === "Sí" ? obtenerValor("alergias") : "No";
-  document.getElementById("r-operado").textContent = obtenerValor("fue-operado") === "Sí" ? obtenerValor("operado") : "No";
-  document.getElementById("r-familia").textContent = obtenerValor("tiene-familia") === "Sí" ? obtenerValor("caso-familiar") : "No";
+    esSi(obtenerValor("tiene-enfermedad-cronica")) ? obtenerValor("cronica") : "No";
+  document.getElementById("r-alergias").textContent =
+    esSi(obtenerValor("tiene-alergia")) ? obtenerValor("alergias") : "No";
+  document.getElementById("r-operado").textContent =
+    esSi(obtenerValor("fue-operado")) ? obtenerValor("operado") : "No";
+  document.getElementById("r-familia").textContent =
+    esSi(obtenerValor("tiene-familia")) ? obtenerValor("caso-familiar") : "No";
   document.getElementById("r-oxigenacion").textContent = obtenerValor("oxigenacion");
   document.getElementById("r-pulso").textContent = obtenerValor("pulso");
   document.getElementById("r-presion").textContent =
@@ -304,6 +304,7 @@ function mostrarResumen() {
   document.getElementById("r-zona-dolor").textContent =
     obtenerValor("zonaSelect") !== "" ? obtenerValor("zonaSelect") : obtenerValor("zona-especifica");
 }
+
 
 function imprimirResumenRawbt() {
   const texto =
@@ -315,10 +316,10 @@ function imprimirResumenRawbt() {
     `Género: ${obtenerValor("genero")}\n` +
     `Periodo: ${obtenerValor("periodo")}\n` +
     `Embarazo: ${obtenerValor("embarazo")}\n` +
-    `Enfermedad Crónica: ${obtenerValor("tiene-enfermedad-cronica") === "sí" ? obtenerValor("cronica") : "No"}\n` +
-    `Alergias: ${obtenerValor("tiene-alergia") === "sí" ? obtenerValor("alergias") : "No"}\n` +
-    `Operaciones: ${obtenerValor("fue-operado") === "sí" ? obtenerValor("operado") : "No"}\n` +
-    `Familiares: ${obtenerValor("tiene-familia") === "sí" ? obtenerValor("caso-familiar") : "No"}\n` +
+    `Enfermedad Crónica: ${esSi(obtenerValor("tiene-enfermedad-cronica")) ? obtenerValor("cronica") : "No"}\n` +
+    `Alergias: ${esSi(obtenerValor("tiene-alergia")) ? obtenerValor("alergias") : "No"}\n` +
+    `Operaciones: ${esSi(obtenerValor("fue-operado")) ? obtenerValor("operado") : "No"}\n` +
+    `Familiares: ${esSi(obtenerValor("tiene-familia")) ? obtenerValor("caso-familiar") : "No"}\n` +
     `Oxigenación: ${obtenerValor("oxigenacion")}\n` +
     `Pulso: ${obtenerValor("pulso")}\n` +
     `Presión: ${obtenerValor("presion-sistolica")}/${obtenerValor("presion-diastolica")}\n` +
