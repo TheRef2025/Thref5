@@ -147,7 +147,6 @@ button:hover {
     font-size: 12px;
   }
 
-  /* Ocultar todo menos el resultado */
   body *:not(#resultado):not(#resultado *) {
     visibility: hidden !important;
   }
@@ -163,8 +162,8 @@ button:hover {
     background: white !important;
   }
 
-  /* Ocultar inputs, selects, botones */
   input, select, button, textarea {
     display: none !important;
   }
 }
+
