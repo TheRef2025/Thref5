@@ -340,14 +340,15 @@ function imprimirYReiniciar() {
   resultado.scrollIntoView({ behavior: "smooth", block: "start" });
 
   setTimeout(() => {
-    imprimirResumenRawbt(); // manda a RawBT
+    imprimirResumenRawbt();
   }, 1500);
 
-  // luego de 3 segundos redirige a index.html
+ 
   setTimeout(() => {
     window.location.href = "index.html"; 
   }, 3000);
 }
+
 
 
 
