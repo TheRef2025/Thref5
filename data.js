@@ -331,7 +331,7 @@ function imprimirResumenRawbt() {
   window.location.href = rawbtURL;
 
   setTimeout(() => {
-    location.reload();
+  window.location.href = "index.html"; 
   }, 3000);
 }
 
@@ -349,4 +349,5 @@ function imprimirYReiniciar() {
     imprimirResumenRawbt();
   }, 1500);
 }
+
 
