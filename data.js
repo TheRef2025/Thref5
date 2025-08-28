@@ -349,3 +349,4 @@ function imprimirYReiniciar() {
     imprimirResumenRawbt();
   }, 1500);
 }
+
