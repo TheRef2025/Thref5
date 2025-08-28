@@ -330,12 +330,6 @@ function imprimirResumenRawbt() {
   const rawbtURL = "rawbt:" + encodeURIComponent(texto);
   window.location.href = rawbtURL;
 
-  setTimeout(() => {
-  window.location.href = "index.html"; 
-  }, 3000);
-}
-
-
 
 function imprimirYReiniciar() {
   mostrarResumen();
@@ -346,8 +340,15 @@ function imprimirYReiniciar() {
   resultado.scrollIntoView({ behavior: "smooth", block: "start" });
 
   setTimeout(() => {
-    imprimirResumenRawbt();
+    imprimirResumenRawbt(); // manda a RawBT
   }, 1500);
+
+  // luego de 3 segundos redirige a index.html
+  setTimeout(() => {
+    window.location.href = "index.html"; 
+  }, 3000);
 }
+
+
 
 
