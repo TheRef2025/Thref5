@@ -1,4 +1,4 @@
-// ================= VOZ =================
+
 let vozEspanol = null;
 
 function cargarVozEspanol() {
@@ -34,7 +34,6 @@ const mensajesPorSeccion = {
     "resultado": `Aquí tienes el resumen de tu diagnóstico previo.`,
 };
 
-// ================= INICIO =================
 document.addEventListener("DOMContentLoaded", () => {
     cargarVozEspanol();
     if (speechSynthesis.onvoiceschanged !== undefined) {
@@ -58,7 +57,6 @@ function mostrarSeccion(id) {
     }
 }
 
-// ================= DATOS BÁSICOS =================
 function validarDatosBasicos() {
     const nombre = document.getElementById("nombre").value.trim();
     const edadStr = document.getElementById("edad").value.trim();
@@ -101,7 +99,6 @@ function verificarGenero() {
     else extraMujer.classList.add("oculto");
 }
 
-// ================= SELECCIÓN DE OPCIONES =================
 function toggleOpcionesCronica(valor) {
     const div = document.getElementById("opciones-cronica");
     div.classList.toggle("oculto", valor !== "Sí");
@@ -122,7 +119,7 @@ function toggleOpcionesFamilia(valor) {
     div.classList.toggle("oculto", valor !== "Sí");
 }
 
-// ================= MOSTRAR SECCIONES =================
+
 function mostrarSignos() {
     mostrarSeccion("seccion-signos");
     const img = document.getElementById("imagen-signos");
@@ -159,7 +156,7 @@ function mostrarSiguiente() {
     mostrarSeccion("resultado");
 }
 
-// ================= RESUMEN =================
+
 function obtenerValor(id) {
     const elem = document.getElementById(id);
     if (!elem) return "No especificado";
@@ -197,7 +194,7 @@ document.getElementById("r-temperatura").textContent = obtenerValor("temperatura
 document.getElementById("r-zona-dolor").textContent = obtenerValor("zonaSelect") !== "" ? obtenerValor("zonaSelect") : obtenerValor("zona-especifica");
 }
 
-// ================= IMPRESIÓN =================
+
 function imprimirResumenRawbt() {
     const cronica = document.getElementById("enfermedad-cronica-select")?.value;
     const alergia = document.getElementById("alergias-select")?.value;
@@ -245,3 +242,4 @@ function imprimirYReiniciar() {
     window.location.href = "index.html"; 
   }, 3000);
 }
+
