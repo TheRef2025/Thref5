@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>TheRef</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <h1 class="titulo-principal">TheRef</h1>
+
+    <form autocomplete="off" class="contenedor">
+        
+        <div id="seccion-datos-basicos" class="seccion">
+            <h2 id="titulo-datos-basicos">Basic Information</h2>
+            <input type="text" id="nombre" placeholder="What is your name?" />
+            <input type="number" id="edad" placeholder="How old are you?" />
+            <button type="button" onclick="validarDatosBasicos()">Next</button>
+        </div>
+
+        <div id="seccion-identificacion" class="seccion oculto">
+            <h2 id="titulo-identificacion">ID</h2>
+            <input type="text" id="cui" placeholder="What is your CUI?" />
+            <input type="text" id="dpi" placeholder="What is your DPI?" />
+            <button type="button" onclick="irAGenero()">Next</button>
+            <button onclick="window.location.href='seccion-datos-basicos.html'">Previous</button>
+        </div>
+
+        <div id="seccion-genero" class="seccion oculto">
+            <h2 id="titulo-genero">Gender</h2>
+            <select id="genero" onchange="verificarGenero()" onkeydown="detectarEnterGenero(event)">
+                <option value="">select your gender</option>
+                <option value="hombre">Male</option>
+                <option value="mujer">Female</option>
+            </select>
+
+            <div id="extra-mujer" class="oculto">
+                <label>Are you on your period right now?</label>
+                <select id="periodo">
+                    <option value="">Select</option>
+                    <option value="Sí">Yes</option>
+                    <option value="No">No</option>
+                </select>
+
+                <label>Are you pregnant?</label>
+                <select id="embarazo">
+                    <option value="">Select</option>
+                    <option value="Sí">Yes</option>
+                    <option value="No">No</option>
+                </select>
+            </div>
+            <button type="button" onclick="mostrarSeccion('seccion-cronica')">Next</button>
+            <button type="button" onclick="mostrarSeccion('seccion-identificacion')">Previous</button>
+        </div>
+
+        <div id="seccion-cronica" class="seccion oculto">
+            <h2 id="titulo-cronica">Do you have a chronic disease?</h2>
+            <select id="tiene-enfermedad-cronica" onchange="toggleOpcionesCronica(this.value)">
+                <option value="">Select</option>
+                <option value="Sí">Yes</option>
+                <option value="No">No</option>
+            </select>
+            <div id="opciones-cronica" class="oculto">
+                <select id="enfermedad-cronica-select">
+                    <option value="">Select a chronic disease</option>
+                    <option value="Diabetes">Diabetes</option>
+                    <option value="Hipertensión">Hypertension</option>
+                    <option value="Asma">Asthma</option>
+                    <option value="Cardiopatía">Heart disease</option>
+                    <option value="Enfermedad renal">Kidney disease</option>
+                </select>
+            </div>
+            <button type="button" onclick="mostrarSeccion('seccion-alergias')">Next</button>
+            <button type="button" onclick="mostrarSeccion('seccion-genero')">Previous</button>
+        </div>
+
+        <div id="seccion-alergias" class="seccion oculto">
+            <h2>Do you have any allergies?</h2>
+            <select id="tiene-alergia" onchange="toggleOpcionesAlergias(this.value)">
+                <option value="">Select</option>
+                <option value="Sí">Yes</option>
+                <option value="No">No</option>
+            </select>
+            <div id="opciones-alergias" class="oculto">
+                <select id="alergias-select">
+                    <option value="">Select an allergy</option>
+                    <option value="Alimentarias">Food</option>
+                    <option value="Medicamentos">Medications</option>
+                    <option value="Polen">Pollen</option>
+                    <option value="Picaduras">Insect bites</option>
+                    <option value="Látex">Latex</option>
+                </select>
+            </div>
+            <button type="button" onclick="mostrarSeccion('seccion-operaciones')">Next</button>
+            <button type="button" onclick="mostrarSeccion('seccion-cronica')">Previous</button>
+        </div>
+
+        <div id="seccion-operaciones" class="seccion oculto">
+            <h2>Have you had any previous operations?</h2>
+            <select id="fue-operado" onchange="toggleOpcionesOperaciones(this.value)">
+                <option value="">Select</option>
+                <option value="Sí">Yes</option>
+                <option value="No">No</option>
+            </select>
+            <div id="opciones-operaciones" class="oculto">
+                <select id="operaciones-select">
+                    <option value="">Select an operation</option>
+                    <option value="Apendicectomía">Appendectomy</option>
+                    <option value="Cesárea">Cesarean section</option>
+                    <option value="Amigdalectomía">Tonsillectomy</option>
+                    <option value="Cirugía de rodilla">Knee surgery</option>
+                </select>
+            </div>
+            <button type="button" onclick="mostrarSeccion('seccion-familia')">Next</button>
+            <button type="button" onclick="mostrarSeccion('seccion-alergias')">Previous</button>
+        </div>
+
+        <div id="seccion-familia" class="seccion oculto">
+            <h2>Is there any family history of illness?</h2>
+            <select id="tiene-familia" onchange="toggleOpcionesFamilia(this.value)">
+                <option value="">Select</option>
+                <option value="Sí">Yes</option>
+                <option value="No">No</option>
+            </select>
+            <div id="opciones-familia" class="oculto">
+                <select id="familia-select">
+                    <option value="">Select a condition</option>
+                    <option value="Diabetes">Diabetes</option>
+                    <option value="Hipertensión">Hypertension</option>
+                    <option value="Cáncer">Cancer</option>
+                    <option value="Enfermedad cardíaca">Heart disease</option>
+                </select>
+            </div>
+            <button type="button" onclick="mostrarSeccion('seccion-signos')">Next</button>
+            <button type="button" onclick="mostrarSeccion('seccion-operaciones')">Previous</button>
+        </div>
+
+        <div id="seccion-signos" class="seccion oculto posicion-relativa">
+            <img src="ESTASIIMPORTANTEQEQ.png" id="imagen-signos" alt="Vital Signs Image" class="imagen-superpuesta" />
+            <h2>Vital Signs</h2>
+            <input type="number" id="oxigenacion" placeholder="Oxygen Saturation (%)" />
+            <input type="number" id="pulso" placeholder="Pulse (bpm)" />
+            <input type="number" id="presion-sistolica" placeholder="Systolic Pressure" />
+            <input type="number" id="presion-diastolica" placeholder="Diastolic Pressure" />
+            <input type="number" step="0.1" id="temperatura" placeholder="Temperature (°C)" />
+            <button type="button" onclick="evaluarSignos()">Next</button>
+            <button type="button" onclick="mostrarSeccion('seccion-familia')">Previous</button>
+        </div>
+
+        <div id="seccion-zona-dolor" class="seccion oculto">
+            <h2>Area of Pain</h2>
+            <select id="zonaSelect" onchange="toggleInput('zonaSelect', 'zona-especifica', false)">
+                <option value="">Select an area</option>
+                <option value="cabeza">Head</option>
+                <option value="pecho o cuello frontal">Chest or front of neck</option>
+                <option value="espalda o cuello trasero">Back or back of neck</option>
+                <option value="abdomen">Abdomen</option>
+                <option value="extremidades">Limbs</option>
+                <option value="genitales">Genitals</option>
+            </select>
+            <input type="text" id="zona-especifica" placeholder="Specify the area" class="oculto" />
+         <button type="button" onclick="mostrarResumen(); mostrarSeccion('resultado');">Next</button>
+            <button type="button" onclick="mostrarSeccion('seccion-signos')">Previous</button>
+        </div>
+
+<div id="resultado" class="seccion oculto">
+    <h2>Resultado</h2>
+    <p id="mensaje-final"></p>
+    <h3>Resumen</h3>
+    <div id="datos-finales">
+        <p>Nombre: <span id="r-nombre"></span></p>
+        <p>CUI: <span id="r-cui"></span></p>
+        <p>DPI: <span id="r-dpi"></span></p>
+        <p>Edad: <span id="r-edad"></span></p>
+        <p>Género: <span id="r-genero"></span></p>
+        <p>Periodo: <span id="r-periodo"></span></p>
+        <p>Embarazo: <span id="r-embarazo"></span></p>
+        <p>Enfermedad Crónica: <span id="r-cronica"></span></p>
+        <p>Alergia: <span id="r-alergias"></span></p>
+        <p>Operaciones: <span id="r-operado"></span></p>
+        <p>Familiares: <span id="r-familia"></span></p>
+        <p>Oxigenación: <span id="r-oxigenacion"></span></p>
+        <p>Pulso: <span id="r-pulso"></span></p>
+        <p>Sistólica: <span id="r-presion-sistolica"></span></p>
+        <p>Diastólica: <span id="r-presion-diastolica"></span></p>
+        <p>Temperatura: <span id="r-temperatura"></span></p>
+        <p>Zona de Dolor: <span id="r-zona-dolor"></span></p>
+    </div>
+            <button type="button" onclick="imprimirYReiniciar()">Print Report</button>
+        </div>
+    </form>
+
+    <script src="datamay.js" defer></script>
+</body>
+</html>
