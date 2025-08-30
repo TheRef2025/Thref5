@@ -1,155 +1,169 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>TheRef</title>
-<link rel="stylesheet" href="style.css" />
-
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>TheRef</title>
+    <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-<h1 class="titulo-principal">TheRef</h1>
+    <h1 class="titulo-principal">TheRef</h1>
 
-</div>
+    <form autocomplete="off" class="contenedor">
+        
+        <div id="seccion-datos-basicos" class="seccion">
+            <h2 id="titulo-datos-basicos">Xb’eenil esilal</h2>
+            <input type="text" id="nombre" placeholder="Ani laa k'ab'a?" />
+            <input type="number" id="edad" placeholder="Jarub' chihab' wan aawe?" />
+            <button type="button" onclick="validarDatosBasicos()">Jun chik</button>
+        </div>
 
-</div>
+        <div id="seccion-identificacion" class="seccion oculto">
+            <h2 id="titulo-identificacion">ID</h2>
+            <input type="text" id="cui" placeholder="K’a’ru li CUI?" />
+            <input type="text" id="dpi" placeholder="K’a’ru li DPI?" />
+            <button type="button" onclick="irAGenero()">Jun chik</button>
+            <button onclick="window.location.href='seccion-datos-basicos.html'">Suq'esinkil</button>
+        </div>
 
+        <div id="seccion-genero" class="seccion oculto">
+            <h2 id="titulo-genero">Xpayil</h2>
+            <select id="genero" onchange="verificarGenero()" onkeydown="detectarEnterGenero(event)">
+                <option value="">sik' ru laa winqilal</option>
+                <option value="hombre">Winq</option>
+                <option value="mujer">Ixq</option>
+            </select>
 
+            <div id="extra-mujer" class="oculto">
+                <label>Ma wankat sa’ laa periodo anajwan?</label>
+                <select id="periodo">
+                    <option value="">Xsik'b'al</option>
+                    <option value="Sí">Jo'kan</option>
+                    <option value="No">Ink'a'</option>
+                </select>
 
-<form autocomplete="off" class="contenedor">
+                <label>Ma wankat sa’ yu’am?</label>
+                <select id="embarazo">
+                    <option value="">Xsik'b'al</option>
+                    <option value="Sí">Jo'kan</option>
+                    <option value="No">Ink'a'</option>
+                </select>
+            </div>
+            <button type="button" onclick="mostrarSeccion('seccion-cronica')">Jun chik</button>
+            <button type="button" onclick="mostrarSeccion('seccion-identificacion')">Suq'esinkil</button>
+        </div>
 
+        <div id="seccion-cronica" class="seccion oculto">
+            <h2 id="titulo-cronica">Ma wan junaq laa yajel li ink’a’ na’oso’?</h2>
+            <select id="tiene-enfermedad-cronica" onchange="toggleOpcionesCronica(this.value)">
+                <option value="">Xsik'b'al</option>
+                <option value="Sí">Jo'kan</option>
+                <option value="No">Ink'a'</option>
+            </select>
+            <div id="opciones-cronica" class="oculto">
+                <select id="enfermedad-cronica-select">
+                    <option value="">Selecciona una crónica</option>
+                    <option value="Diabetes">Diabetes</option>
+                    <option value="Hipertensión">Hipertensión</option>
+                    <option value="Asma">Asma</option>
+                    <option value="Cardiopatía">Cardiopatía</option>
+                    <option value="Enfermedad renal">Enfermedad renal</option>
+                </select>
+            </div>
+            <button type="button" onclick="mostrarSeccion('seccion-alergias')">Jun chik</button>
+            <button type="button" onclick="mostrarSeccion('seccion-genero')">Suq'esinkil</button>
+        </div>
 
-    <div id="seccion-datos-basicos" class="seccion">
-    <h2 id="titulo-datos-basicos">Xb’eenil esilal</h2>
-    <input type="text" id="nombre" placeholder="Ani laa k'ab'a?" />
-    <input type="number" id="edad" placeholder="Jarub' chihab' wan aawe?" />
-    <button type="button" onclick="validarDatosBasicos()">Jun chik</button>
-    </div>
+        <div id="seccion-alergias" class="seccion oculto">
+            <h2>Ma wank junaq li alergia?</h2>
+            <select id="tiene-alergia" onchange="toggleOpcionesAlergias(this.value)">
+                <option value="">Xsik'b'al</option>
+                <option value="Sí">Jo'kan</option>
+                <option value="No">Ink'a'</option>
+            </select>
+            <div id="opciones-alergias" class="oculto">
+                <select id="alergias-select">
+                    <option value="">Selecciona una alergia</option>
+                    <option value="Alimentarias">Alimentarias</option>
+                    <option value="Medicamentos">Medicamentos</option>
+                    <option value="Polen">Polen</option>
+                    <option value="Picaduras">Picaduras de insectos</option>
+                    <option value="Látex">Látex</option>
+                </select>
+            </div>
+            <button type="button" onclick="mostrarSeccion('seccion-operaciones')">Jun chik</button>
+            <button type="button" onclick="mostrarSeccion('seccion-cronica')">Suq'esinkil</button>
+        </div>
 
-    <div id="seccion-identificacion" class="seccion oculto">
-    <h2 id="titulo-identificacion">ID</h2>
-    <input type="text" id="cui" placeholder="K’a’ru li CUI?" />
-    <input type="text" id="dpi" placeholder="K’a’ru li DPI?" />
-    <button type="button" onclick="irAGenero()">Jun chik</button>
+        <div id="seccion-operaciones" class="seccion oculto">
+            <h2>Ma ak xat-opereʼk?</h2>
+            <select id="fue-operado" onchange="toggleOpcionesOperaciones(this.value)">
+                <option value="">Xsik'b'al</option>
+                <option value="Sí">Jo'kan</option>
+                <option value="No">Ink'a'</option>
+            </select>
+            <div id="opciones-operaciones" class="oculto">
+                <select id="operaciones-select">
+                    <option value="">Selecciona una operación</option>
+                    <option value="Apendicectomía">Apendicectomía</option>
+                    <option value="Cesárea">Cesárea</option>
+                    <option value="Amigdalectomía">Amigdalectomía</option>
+                    <option value="Cirugía de rodilla">Cirugía de rodilla</option>
+                </select>
+            </div>
+            <button type="button" onclick="mostrarSeccion('seccion-familia')">Jun chik</button>
+            <button type="button" onclick="mostrarSeccion('seccion-alergias')">Suq'esinkil</button>
+        </div>
 
-    <button onclick="window.location.href='seccion-datos-basicos.html'">Suq'esinkil</button>
-    </div>
+        <div id="seccion-familia" class="seccion oculto">
+            <h2>Ma wan junaq resilal li yajel sa’ laa junkab’al?</h2>
+            <select id="tiene-familia" onchange="toggleOpcionesFamilia(this.value)">
+                <option value="">Xsik'b'al</option>
+                <option value="Sí">Jo'kan</option>
+                <option value="No">Ink'a'</option>
+            </select>
+            <div id="opciones-familia" class="oculto">
+                <select id="familia-select">
+                    <option value="">Selecciona un antecedente</option>
+                    <option value="Diabetes">Diabetes</option>
+                    <option value="Hipertensión">Hipertensión</option>
+                    <option value="Cáncer">Cáncer</option>
+                    <option value="Enfermedad cardíaca">Enfermedad cardíaca</option>
+                </select>
+            </div>
+            <button type="button" onclick="mostrarSeccion('seccion-signos')">Jun chik</button>
+            <button type="button" onclick="mostrarSeccion('seccion-operaciones')">Suq'esinkil</button>
+        </div>
 
-    <div id="seccion-genero" class="seccion oculto">
-    <h2 id="titulo-genero">Xpayil</h2>
-    <select id="genero" onchange="verificarGenero()" onkeydown="detectarEnterGenero(event)">
-        <option value="">sik' ru laa winqilal</option>
-        <option value="hombre">Winq</option>
-        <option value="mujer">Ixq</option>
-    </select>
+        <div id="seccion-signos" class="seccion oculto posicion-relativa">
+            <img src="ESTASIIMPORTANTEQEQ.png" id="imagen-signos" alt="Imagen signos" class="imagen-superpuesta" />
+            <h2>Eb’ li eetalil aajel ru</h2>
+            <input type="number" id="oxigenacion" placeholder="Oxigenación (%)" />
+            <input type="number" id="pulso" placeholder="Pulso (lpm)" />
+            <input type="number" id="presion-sistolica" placeholder="Presión Sistólica" />
+            <input type="number" id="presion-diastolica" placeholder="Presión Diastólica" />
+            <input type="number" step="0.1" id="temperatura" placeholder="Temperatura (°C)" />
+            <button type="button" onclick="evaluarSignos()">Jun chik</button>
+            <button type="button" onclick="mostrarSeccion('seccion-familia')">Suq'esinkil</button>
+        </div>
 
-    <div id="extra-mujer" class="oculto">
-        <label>Ma wankat sa’ laa periodo anajwan?</label>
-        <select id="periodo">
-        <option value="">Xsik'b'al</option>
-        <option value="Sí">Jo'kan</option>
-        <option value="No">Ink'a'</option>
-        </select>
+        <div id="seccion-zona-dolor" class="seccion oculto">
+            <h2>xna'aj li rahilal</h2>
+            <select id="zonaSelect" onchange="toggleInput('zonaSelect', 'zona-especifica', false)">
+                <option value="">Sikʼ ru junaq li naʼaj</option>
+                <option value="cabeza">Jolom</option>
+                <option value="pecho o cuello frontal">Chi ub’ej re li xsa’ malaj li xtel</option>
+                <option value="espalda o cuello trasero">Chi ub’ej malaj chirix li tel .</option>
+                <option value="abdomen">xsa'</option>
+                <option value="extremidades">Li ruq’ malaj li roq</option>
+                <option value="genitales">xkomon li junesal</option>
+            </select>
+            <input type="text" id="zona-especifica" placeholder="Especifica la zona" class="oculto" />
+<button type="button" onclick="mostrarResumen(); mostrarSeccion('resultado');">Jun chik</button>
+            <button type="button" onclick="mostrarSeccion('seccion-signos')">Suq'esinkil</button>
+        </div>
 
-        <label>Ma wankat sa’ yu’am?</label>
-        <select id="embarazo">
-        <option value="">Xsik'b'al</option>
-        <option value="Sí">Jo'kan</option>
-        <option value="No">Ink'a'</option>
-        </select>
-    </div>
-    <button type="button" onclick="mostrarCronica()">Jun chik</button>
-    <button type="button" onclick="validarDatosBasicos()">Suq'esinkil</button>
-
-
-    </div>
-
-    <div id="seccion-cronica" class="seccion oculto">
-    <h2 id="titulo-cronica">Ma wan junaq laa yajel li ink’a’ na’oso’?</h2>
-    <select id="tiene-enfermedad-cronica" onchange="toggleInput('tiene-enfermedad-cronica', 'cronica')">
-        <option value="">Xsik'b'al</option>
-        <option value="Sí">Jo'kan</option>
-        <option value="No">Ink'a'</option>
-    </select>
-
-    <div>
-
-    </div>
-    <input type="text" id="cronica" placeholder="Ch’olob’ li yajel ." class="oculto" />
-    <button type="button" onclick="mostrarAlergias()">Jun chik</button>
-            <button type="button" onclick="irAGenero()">Suq'esinkil</button>
-
-    </div>
-
-    <div id="seccion-alergias" class="seccion oculto">
-    <h2>Ma wank junaq li alergia?</h2>
-    <select id="tiene-alergia" onchange="toggleInput('tiene-alergia', 'alergias')">
-        <option value="">Xsik'b'al</option>
-        <option value="Sí">Jo'kan</option>
-        <option value="No">Ink'a'</option>
-    </select>
-    <input type="text" id="alergias" placeholder="Ch’olob’ li alergia ." class="oculto" />
-    <button type="button" onclick="mostrarOperaciones()">Jun chik</button>
-
-    <button type="button" onclick="mostrarCronica()">Suq'esinkil</button>
-
-
-    </div>
-
-    <div id="seccion-operaciones" class="seccion oculto">
-    <h2>Ma ak xat-opereʼk?</h2>
-    <select id="fue-operado" onchange="toggleInput('fue-operado', 'operado')">
-        <option value="">Xsik'b'al</option>
-        <option value="Sí">Jo'kan</option>
-        <option value="No">Ink'a'</option>
-    </select>
-    <input type="text" id="operado" placeholder="Naxch’olob’ li k’anjel ." class="oculto" />
-    <button type="button" onclick="mostrarFamilia()">Jun chik</button>
-            <button type="button" onclick="mostrarAlergias()">Suq'esinkil</button>
-
-    </div>
-
-    <div id="seccion-familia" class="seccion oculto">
-    <h2>Ma wan junaq resilal li yajel sa’ laa junkab’al?</h2>
-    <select id="tiene-familia" onchange="toggleInput('tiene-familia', 'caso-familiar')">
-        <option value="">Xsik'b'al</option>
-        <option value="Sí">Jo'kan</option>
-        <option value="No">Ink'a'</option>
-    </select>
-    <input type="text" id="caso-familiar" placeholder="Ch’olob’ li k’a’ru ." class="oculto" />
-    <button type="button" onclick="mostrarSignos()">Jun chik</button>
-    <button type="button" onclick="mostrarOperaciones()">Suq'esinkil</button>
-    </div>
-
-    <div id="seccion-signos" class="seccion oculto posicion-relativa">
-    <img src="ESTASIIMPORTANTEQEQ.png" id="imagen-signos" alt="Imagen signos" class="imagen-superpuesta" />
-    <h2>Eb’ li eetalil aajel ru</h2>
-    <input type="number" id="oxigenacion" placeholder="Oxigenación (%)" />
-    <input type="number" id="pulso" placeholder="Pulso (lpm)" />
-    <input type="number" id="presion-sistolica" placeholder="Presión Sistólica" />
-    <input type="number" id="presion-diastolica" placeholder="Presión Diastólica" />
-    <input type="number" step="0.1" id="temperatura" placeholder="Temperatura (°C)" />
-    <button type="button" onclick="evaluarSignos()">Jun chik</button>
-    <button type="button" onclick="mostrarFamilia()">Suq'esinkil</button>
-    </div>
-
-    <div id="seccion-zona-dolor" class="seccion oculto">
-    <h2>xna'aj li rahilal</h2>
-    <select id="zonaSelect" onchange="toggleInput('zonaSelect', 'zona-especifica', false)">
-        <option value="">Sikʼ ru junaq li naʼaj</option>
-        <option value="cabeza">Jolom</option>
-        <option value="pecho o cuello frontal">Chi ub’ej re li xsa’ malaj li xtel</option>
-        <option value="espalda o cuello trasero">Chi ub’ej malaj chirix li tel .</option>
-        <option value="abdomen">xsa'</option>
-        <option value="extremidades">Li ruq’ malaj li roq</option>
-        <option value="genitales">xkomon li junesal</option>
-    </select>
-    <input type="text" id="zona-especifica" placeholder="Especifica la zona" class="oculto" />
-    <button type="button" onclick="mostrarSiguiente()">Jun chik</button>
-    <button type="button" onclick="mostrarSignos()">Suq'esinkil</button>
-    </div>
-
-    <div id="resultado" class="seccion oculto">
+<div id="resultado" class="seccion oculto">
     <h2>Resultado</h2>
     <p id="mensaje-final"></p>
     <h3>Resumen</h3>
@@ -162,23 +176,23 @@
         <p>Periodo: <span id="r-periodo"></span></p>
         <p>Embarazo: <span id="r-embarazo"></span></p>
         <p>Enfermedad Crónica: <span id="r-cronica"></span></p>
-        <p>Alergias: <span id="r-alergias"></span></p>
+        <p>Alergia: <span id="r-alergias"></span></p>
         <p>Operaciones: <span id="r-operado"></span></p>
         <p>Familiares: <span id="r-familia"></span></p>
         <p>Oxigenación: <span id="r-oxigenacion"></span></p>
         <p>Pulso: <span id="r-pulso"></span></p>
-        <p>Presión: <span id="r-presion"></span></p>
+        <p>Sistólica: <span id="r-presion-sistolica"></span></p>
+        <p>Diastólica: <span id="r-presion-diastolica"></span></p>
         <p>Temperatura: <span id="r-temperatura"></span></p>
         <p>Zona de Dolor: <span id="r-zona-dolor"></span></p>
     </div>
-    <button type="button" onclick="imprimirYReiniciar()">Tz’ajsik li etab’äl</button>
-    </div>
-</form>
+            <button type="button" onclick="imprimirYReiniciar()">Tz’ajsik li etab’äl</button>
+        </div>
+    </form>
 
-<script src="data.js" defer></script>
+    <script src="datamay.js" defer></script>
 </body>
 </html>
-
 
 
 
